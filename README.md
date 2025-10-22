@@ -73,21 +73,21 @@ Genera imagen anotada con cajas de colores:
 
 [![Open Spain Financial](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/MrGo2/DeepSeek-OCR-Spain/blob/main/DeepSeek_OCR_Colab_Spain_Financial.ipynb)
 
-⚠️ **Importante**: Sigue `NOTEBOOK_UPDATES.md` para aplicar mejoras v2.0
-
 ### 2. Activar GPU + RAM Alta
 
-1. **Entorno de ejecución → Cambiar tipo de entorno**
+1. **Runtime → Change runtime type**
 2. Seleccionar **T4 GPU**
-3. Seleccionar **RAM alta** (25 GB)
-4. Click **Guardar**
+3. Seleccionar **High-RAM** (25 GB)
+4. Click **Save**
 
 ### 3. Ejecutar
 
-1. **Entorno de ejecución → Ejecutar todo**
-2. Esperar 15-20 min (primera vez)
+1. **Runtime → Run all**
+2. Esperar 10-15 min (primera vez: descarga modelo ~8GB)
 3. Subir tu contrato PDF
-4. Ver extracciones + validación + visualización
+4. Ver extracciones + validación
+
+⚡ **Nota**: Usa PyTorch por defecto de Colab + eager attention (sin Flash Attention para evitar problemas de compatibilidad)
 
 ---
 
@@ -182,15 +182,15 @@ Próximamente: `DeepSeek_OCR_Colab_Spain_Financial_v2.ipynb`
 
 ## 🐛 Problemas Conocidos y Soluciones
 
-### Error: AttributeError circular import
-**Solución**: Cambiar PyTorch 2.6.0 → 2.5.1
-```python
-!pip install torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1
-```
+### ✅ SOLUCIONADO: Errores de compatibilidad PyTorch/Flash Attention
+**Solución implementada**: El notebook ahora usa `attn_implementation="eager"` en lugar de Flash Attention
+- No requiere instalar Flash Attention (evita errores de compilación)
+- Usa PyTorch por defecto de Colab (2.x)
+- Compatible y probado en Colab
 
 ### Error: Out of memory
 **Solución**: Usar RAM alta (25 GB)
-- Entorno de ejecución → Cambiar tipo → RAM alta
+- Runtime → Change runtime type → High-RAM
 
 ---
 
